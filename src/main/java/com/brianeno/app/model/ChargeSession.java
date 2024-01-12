@@ -4,19 +4,18 @@
  */
 package com.brianeno.app.model;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class ChargeSession {
 
-    @NotNull
     private Integer id;
 
     @NotBlank

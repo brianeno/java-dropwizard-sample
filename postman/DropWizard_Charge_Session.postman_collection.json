@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "e1764152-83ab-4240-b5af-10aeb3d017e4",
+		"name": "DropWizard_Charge_Session",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2294643"
+	},
+	"item": [
+		{
+			"name": "InsertChargeSession",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "basic YWRtaW46cGFzc3dvcmQ=",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"make\": \"Ford\",\n    \"model\": \"F150\",\n    \"wattHours\": 429\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/session",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateChargeSession",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "basic YWRtaW46cGFzc3dvcmQ=",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 2,\n    \"make\": \"Ford\",\n    \"model\": \"F150\",\n    \"wattHours\": 405\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/session/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"session",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetChargeSessionById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "basic YWRtaW46cGFzc3dvcmQ=",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"make\": \"Ford\",\n    \"model\": \"F150\",\n    \"wattHours\": 429\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/session/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"session",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetChargeSessionAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "basic YWRtaW46cGFzc3dvcmQ=",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"make\": \"Ford\",\n    \"model\": \"F150\",\n    \"wattHours\": 429\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/session",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteChargeSessionById",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "basic YWRtaW46cGFzc3dvcmQ=",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"make\": \"Ford\",\n    \"model\": \"F150\",\n    \"wattHours\": 429\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/session/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"session",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

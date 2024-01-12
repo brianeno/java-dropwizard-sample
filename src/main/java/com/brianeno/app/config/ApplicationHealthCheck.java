@@ -27,13 +27,13 @@ public class ApplicationHealthCheck extends HealthCheck {
     @Override
     protected Result check() throws Exception {
 
-        WebTarget webTarget = client.target("http://localhost:8080/sessions");
+        WebTarget webTarget = client.target("http://localhost:8000/session/status");
 
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 
         Response response = invocationBuilder.get();
-        List<ChargeSession> chargeSessions = response.readEntity(ArrayList.class);
-        if (chargeSessions != null && !chargeSessions.isEmpty()) {
+        int status = response.getStatus();
+        if (status < 300) {
             return Result.healthy();
         }
         return Result.unhealthy("API Failed");

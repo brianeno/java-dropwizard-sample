@@ -32,12 +32,18 @@ import java.util.Set;
 @Produces(MediaType.APPLICATION_JSON)
 public class ChargeSessionController {
 
-    private Validator validator;
-    private ChargeSessionRepository repository;
+    private final Validator validator;
+    private final ChargeSessionRepository repository;
 
     public ChargeSessionController(Validator validator, ChargeSessionRepository repository) {
         this.validator = validator;
         this.repository = repository;
+    }
+
+    @GET
+    @Path("/status")
+    public Response getChargeSessions() {
+        return Response.ok(repository.getSessions()).build();
     }
 
     @GET
@@ -60,25 +66,22 @@ public class ChargeSessionController {
 
     @POST
     @RolesAllowed({"ADMIN"})
-    public Response createEChargeSessions(ChargeSession chargeSession, @Auth User user) throws URISyntaxException {
+    public Response createChargeSessions(ChargeSession chargeSession, @Auth User user) throws URISyntaxException {
         // validation
         Set<ConstraintViolation<ChargeSession>> violations = validator.validate(chargeSession);
-        ChargeSession e = repository.getChargeSession(chargeSession.getId());
-        if (violations.size() > 0) {
-            ArrayList<String> validationMessages = new ArrayList<String>();
+        if (!violations.isEmpty()) {
+            ArrayList<String> validationMessages = new ArrayList<>();
             for (ConstraintViolation<ChargeSession> violation : violations) {
                 validationMessages.add(
                     violation.getPropertyPath().toString() + ": " + violation.getMessage());
             }
             return Response.status(Status.BAD_REQUEST).entity(validationMessages).build();
         }
-        if (e != null) {
-            repository.updateChargeSession(chargeSession.getId(), chargeSession);
-            return Response.created(new URI("/sessions/" + chargeSession.getId()))
-                .build();
-        } else {
-            return Response.status(Status.NOT_FOUND).build();
-        }
+
+        ChargeSession newCs = repository.insertNewChargeSession(chargeSession.getMake(),
+            chargeSession.getModel(), chargeSession.getWattHours());
+        return Response.created(new URI("/session/" + newCs.getId()))
+            .build();
     }
 
     @PUT
@@ -87,20 +90,22 @@ public class ChargeSessionController {
     public Response updateChargeSessionById(@PathParam("id") Integer id, ChargeSession chargeSession, @Auth User user) {
         // validation
         Set<ConstraintViolation<ChargeSession>> violations = validator.validate(chargeSession);
-        ChargeSession e = repository.getChargeSession(chargeSession.getId());
-        if (violations.size() > 0) {
-            ArrayList<String> validationMessages = new ArrayList<String>();
+        if (!violations.isEmpty()) {
+            ArrayList<String> validationMessages = new ArrayList<>();
             for (ConstraintViolation<ChargeSession> violation : violations) {
                 validationMessages.add(
                     violation.getPropertyPath().toString() + ": " + violation.getMessage());
             }
             return Response.status(Status.BAD_REQUEST).entity(validationMessages).build();
         }
-        if (e != null) {
+        var cs = repository.getChargeSession(chargeSession.getId());
+        if (cs != null) {
             chargeSession.setId(id);
-            repository.updateChargeSession(id, chargeSession);
+            repository.updateChargeSession(id, chargeSession.getMake(),
+                chargeSession.getModel(), chargeSession.getWattHours());
             return Response.ok(chargeSession).build();
         } else {
+            // record not found to update
             return Response.status(Status.NOT_FOUND).build();
         }
     }
@@ -108,7 +113,7 @@ public class ChargeSessionController {
     @DELETE
     @Path("/{id}")
     @RolesAllowed({"ADMIN"})
-    public Response removeChsargeSessionById(@PathParam("id") Integer id, @Auth User user) {
+    public Response removeChargeSessionById(@PathParam("id") Integer id, @Auth User user) {
         ChargeSession chargeSession = repository.getChargeSession(id);
         if (chargeSession != null) {
             repository.removeChargeSession(id);

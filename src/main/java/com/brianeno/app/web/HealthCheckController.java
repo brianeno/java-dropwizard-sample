@@ -19,7 +19,7 @@ import java.util.Set;
 @Path("/status")
 public class HealthCheckController {
 
-    private HealthCheckRegistry registry;
+    private final HealthCheckRegistry registry;
 
     public HealthCheckController(HealthCheckRegistry registry) {
         this.registry = registry;

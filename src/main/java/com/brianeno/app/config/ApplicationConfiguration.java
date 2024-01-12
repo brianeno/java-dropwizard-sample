@@ -7,10 +7,19 @@ package com.brianeno.app.config;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.client.JerseyClientConfiguration;
 import io.dropwizard.core.Configuration;
+import io.dropwizard.db.DataSourceFactory;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
 
 public class ApplicationConfiguration extends Configuration {
+
+    @Getter
+    private final DataSourceFactory dataSourceFactory;
+
+    public ApplicationConfiguration(@JsonProperty("datasource") @Valid @NotNull final DataSourceFactory dataSourceFactory) {
+        this.dataSourceFactory = dataSourceFactory;
+    }
 
     @Valid
     @NotNull

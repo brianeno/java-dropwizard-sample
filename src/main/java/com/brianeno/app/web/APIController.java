@@ -19,16 +19,16 @@ import java.util.ArrayList;
 @Path("client-root-path")
 public class APIController {
 
-    private Client jerseyClient;
+    private final Client jerseyClient;
 
     public APIController(Client jerseyClient) {
         this.jerseyClient = jerseyClient;
     }
 
     @GET
-    @Path("/sessions/")
+    @Path("/session/")
     public String getChargeSessions() {
-        WebTarget webTarget = jerseyClient.target("http://localhost:8080/sessions");
+        WebTarget webTarget = jerseyClient.target("http://localhost:8000/session");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.get();
         ArrayList<ChargeSession> chargeSessions = response.readEntity(ArrayList.class);
@@ -36,9 +36,9 @@ public class APIController {
     }
 
     @GET
-    @Path("/sessions/{id}")
+    @Path("/session/{id}")
     public String getChargeSessionById(@PathParam("id") int id) {
-        WebTarget webTarget = jerseyClient.target("http://localhost:8080/sessions/" + id);
+        WebTarget webTarget = jerseyClient.target("http://localhost:8000/session/" + id);
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.get();
         ChargeSession chargeSession = response.readEntity(ChargeSession.class);

@@ -13,3 +13,29 @@ logging:
 
 # question: "What should I call you?"
 # greetingTemplate: "Hello, %s!!"
+datasource:
+  driverClass: org.postgresql.Driver
+  #user: ${DB_USER:-root}
+  #password: ${DB_PASS:-admin}
+  #url: ${DB_URL:-jdbc:postgresql://localhost:5432/postgres}
+  user: root
+  password: admin
+  url: jdbc:postgresql://localhost:5433/postgres
+  properties:
+    charSet: UTF-8
+  # the maximum amount of time to wait on an empty pool before throwing an exception
+  maxWaitForConnection: 1s
+  # the SQL query to run when validating a connection's liveliness
+  validationQuery: "SELECT 1"
+  # the timeout before a connection validation queries fail
+  validationQueryTimeout: 3s
+  # the minimum number of connections to keep open
+  minSize: 1
+  # the maximum number of connections to keep open
+  maxSize: 32
+  # whether idle connections should be validated
+  checkConnectionWhileIdle: false
+  # the amount of time to sleep between runs of the idle connection validation, abandoned cleaner and idle pool resizing
+  evictionInterval: 10s
+  # the minimum amount of time a connection must sit idle in the pool before it is eligible for eviction
+  minIdleTime: 1 minute
